@@ -1,6 +1,6 @@
-# Flutter Rive 500
+# React native Rive 500
 
-Flutter app to test performance by rendering 500 Rive Animations.
+React native app to test performance by rendering 500 Rive Animations.
 
 ## All frameworks github links:
 - [Android Compose](https://github.com/SanjayDevTech/perf-compose-rive500)
