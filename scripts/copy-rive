@@ -1,0 +1,5 @@
+#!/bin/bash
+
+echo "Copying rive files into android folder"
+mkdir -p "./android/app/src/main/res/raw"
+cp -r "./assets/raw" "./android/app/src/main/res"
