@@ -1,37 +1,59 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useEffect } from 'react';
-import 'react-native-reanimated';
+import { SafeAreaView, ScrollView, StyleSheet, View, Text } from 'react-native';
+import Rive from 'rive-react-native';
+import { riveObjects } from '../constants/rive';
 
-import { useColorScheme } from '@/hooks/useColorScheme';
-
-// Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
-
-export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
-
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
-
-  if (!loaded) {
-    return null;
-  }
+export default function App() {
+  const multipleRiveObjects = riveObjects
+  .concat(riveObjects)
+  .concat(riveObjects)
+  .concat(riveObjects)
+  .concat(riveObjects)
+  .concat(riveObjects)
+  .concat(riveObjects)
+  .concat(riveObjects)
+  .concat(riveObjects)
+  .concat(riveObjects);
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-    </ThemeProvider>
+    <SafeAreaView>
+      <ScrollView>
+        <View style={styles.container}>
+          <Text>Start Animations</Text>
+          {chunkList(multipleRiveObjects, 3).map((riveList, i) => {
+            return <View key={i} style={styles.row}>
+              {riveList.map(rive => <Rive style={{
+                width: 120,
+                height: 120
+              }} key={rive.resId} resourceName={rive.resId} stateMachineName={rive.stateMachineName ?? undefined} artboardName={rive.artboardName ?? undefined} autoplay />)}
+            </View>;
+          })}
+          <Text>End Animations</Text>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
+function chunkList<T>(list: T[], chunkSize: number): T[][] {
+  const chunks: T[][] = [];
+  for (let i = 0; i < list.length; i += chunkSize) {
+    const end = i + chunkSize > list.length ? list.length : i + chunkSize;
+    chunks.push(list.slice(i, end));
+  }
+  return chunks;
+}
+
+const styles = StyleSheet.create({
+  container: {
+    width: "100%",
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
+    overflow: "scroll"
+  },
+  row: {
+    display: "flex",
+    flexDirection: "row",
+    width: "100%",
+    justifyContent: "flex-start"
+  }
+});

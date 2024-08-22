@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "rive-500",
-    "slug": "rive-500",
+    "name": "Reactnative Rive 500",
+    "slug": "Rive",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -16,21 +16,25 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "com.reactnative.rive",
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       }
-    },
-    "web": {
-      "bundler": "metro",
-      "output": "static",
-      "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
       "expo-router"
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "a8ac1c60-9f3f-4cfa-895b-ef261fadbc58"
+      }
     }
   }
 }
